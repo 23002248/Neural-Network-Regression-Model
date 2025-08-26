@@ -10,7 +10,7 @@ Explain the problem statement
 
 ## Neural Network Model
 
-Include the neural network model diagram.
+<img width="935" height="678" alt="image" src="https://github.com/user-attachments/assets/fcae90c4-6a9b-4af0-ba5d-34b8ea2f5249" />
 
 ## DESIGN STEPS
 
@@ -43,40 +43,64 @@ Plot the performance plot
 Evaluate the model with the testing data.
 
 ## PROGRAM
-### Name:
-### Register Number:
+### Name: Stephen raj Y
+### Register Number: 212223230217
 ```python
 class NeuralNet(nn.Module):
     def __init__(self):
         super().__init__()
-        #Include your code here
+        self.fc1 = nn.Linear(1,8)
+        self.fc2 = nn.Linear(8,10)
+        self.fc3 = nn.Linear(10,1)
+        self.relu = nn.ReLU()
+        self.history={'loss': []}
+  def forward(self,x):
+    x=self.relu(self.fc1(x))
+    x=self.relu(self.fc2(x))
+    x=self.fc3(x)
+    return x
 
 
 
 # Initialize the Model, Loss Function, and Optimizer
+stephen_brain = NeuralNet()
+criterion = nn.MSELoss()
+optimizer = optim.RMSprop(stephen_brain.parameters(),lr=0.001)
 
 
 
-def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=2000):
-    #Include your code here
+def train_model(stephen_brain, X_train, y_train, criterion, optimizer, epochs=2000):
+    for epoch in range(epochs):
+        optimizer.zero_grad()
+        loss = criterion(stephen_brain(X_train), y_train)
+        loss.backward()
+        optimizer.step()
+
+        # Append loss inside the loop
+        stephen_brain.history['loss'].append(loss.item())
+
+        if epoch % 200 == 0:
+            print(f'Epoch [{epoch}/{epochs}], Loss: {loss.item():.6f}')
 
 
 
 ```
 ## Dataset Information
 
-Include screenshot of the dataset
+<img width="224" height="555" alt="image" src="https://github.com/user-attachments/assets/8becd406-7650-42af-a28e-d643e65fce02" />
+
 
 ## OUTPUT
 
 ### Training Loss Vs Iteration Plot
 
-Include your plot here
+<img width="854" height="745" alt="image" src="https://github.com/user-attachments/assets/c7b9711f-3072-4271-a67b-df4901895ef1" />
+
 
 ### New Sample Data Prediction
 
-Include your sample input and output here
+<img width="1072" height="162" alt="image" src="https://github.com/user-attachments/assets/ffe4b4c2-2335-4a40-8a6a-8af751e046de" />
+
 
 ## RESULT
-
-Include your result here
+The neural network regression model was successfully trained and evaluated. The model demonstrated strong predictive performance on unseen data, with a low error rate.
